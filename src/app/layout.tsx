@@ -5,6 +5,7 @@ import EstimateProvider from "@/components/estimate/EstimateProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Preloader from "@/components/Preloader";
 
 export const metadata: Metadata = {
   title: { default: "One Percent", template: "%s | One Percent" },
@@ -27,6 +28,7 @@ export default function RootLayout({
           <SmoothScroll>
             <EstimateProvider>
               <Navbar />
+              <Preloader />
               {children}
               <Footer />
             </EstimateProvider>
