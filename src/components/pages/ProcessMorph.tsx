@@ -114,11 +114,13 @@ export default function ProcessMorph() {
     const io = new IntersectionObserver(([entry]) => (visible = entry.isIntersecting), { rootMargin: "100px" });
     io.observe(root);
 
-    // Holds on each step, then morphs quickly to the next
-    const dwell = (s: number) => {
-      const i = Math.floor(s);
-      const e = THREE.MathUtils.smoothstep(s - i, 0.25, 0.75);
-      return Math.min(i + e, n - 1);
+    // Scroll is split into one equal slice per step. Each slice holds its shape, then morphs
+    // into the next near its end; the last slice holds the final shape throughout, so it gets
+    // as long on screen as every other step.
+    const dwell = (p: number) => {
+      const i = Math.min(Math.floor(p), n - 1);
+      if (i === n - 1) return i;
+      return i + THREE.MathUtils.smoothstep(p - i, 0.6, 1);
     };
 
     const timer = new THREE.Timer();
@@ -140,7 +142,7 @@ export default function ProcessMorph() {
       const raw = THREE.MathUtils.clamp(-rect.top / Math.max(rect.height - vh, 1), 0, 1);
       const entering = THREE.MathUtils.clamp(rect.top / vh, 0, 1);
 
-      smooth += (dwell(raw * (n - 1) * 0.999) - smooth) * (1 - Math.exp(-dt * 5));
+      smooth += (dwell(raw * n) - smooth) * (1 - Math.exp(-dt * 5));
       intro += (entering - intro) * (1 - Math.exp(-dt * 4));
 
       // Load the two shapes on either side of the scroll position

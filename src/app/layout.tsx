@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
-import EstimateProvider from "@/components/estimate/EstimateProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -26,12 +25,10 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col overflow-x-hidden bg-background text-foreground" suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <SmoothScroll>
-            <EstimateProvider>
-              <Navbar />
-              <Preloader />
-              {children}
-              <Footer />
-            </EstimateProvider>
+            <Navbar />
+            <Preloader />
+            {children}
+            <Footer />
           </SmoothScroll>
         </ThemeProvider>
       </body>

@@ -8,12 +8,10 @@ import { flushSync } from "react-dom";
 import { BOOK_CALL_URL, navLinks } from "@/lib/content";
 import { buttonOutline, buttonPrimary } from "@/lib/ui";
 import { syne } from "@/lib/fonts";
-import { useEstimate } from "@/components/estimate/EstimateProvider";
 
 export default function Navbar() {
   const { theme, setTheme, systemTheme } = useTheme();
   const pathname = usePathname();
-  const estimate = useEstimate();
   const [menuOpen, setMenuOpen] = useState(false);
   const mounted = useSyncExternalStore(
     () => () => {},
@@ -114,9 +112,9 @@ export default function Navbar() {
 
       {/* Buttons & Theme Toggle */}
       <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-        <button type="button" onClick={estimate.open} className={`hidden sm:block px-5 py-2.5 text-xs ${buttonOutline}`}>
+        <Link href="/estimate" className={`hidden sm:block px-5 py-2.5 text-xs ${buttonOutline}`}>
           Get Estimation
-        </button>
+        </Link>
         <a href={BOOK_CALL_URL} className={`hidden sm:block px-5 py-2.5 text-xs ${buttonPrimary}`}>
           Book a call
         </a>
@@ -177,9 +175,9 @@ export default function Navbar() {
         <a href={BOOK_CALL_URL} className={`w-full py-4 text-sm ${buttonPrimary}`}>
           Book a call
         </a>
-        <button type="button" onClick={() => { setMenuOpen(false); estimate.open(); }} className={`w-full py-4 text-sm ${buttonOutline}`}>
+        <Link href="/estimate" onClick={() => setMenuOpen(false)} className={`w-full py-4 text-sm ${buttonOutline}`}>
           Get Estimation
-        </button>
+        </Link>
       </div>
     </div>
     </>

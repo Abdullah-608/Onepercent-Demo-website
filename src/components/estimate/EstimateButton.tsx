@@ -1,12 +1,10 @@
-"use client";
-import { useEstimate } from "@/components/estimate/EstimateProvider";
+import Link from "next/link";
 
-// Opens the estimate drawer; usable from server components
+// Link to the estimate page, styled by the caller
 export default function EstimateButton({ className = "", children = "Get an estimate" }: { className?: string; children?: React.ReactNode }) {
-  const { open } = useEstimate();
   return (
-    <button type="button" onClick={open} className={className}>
+    <Link href="/estimate" className={className}>
       {children}
-    </button>
+    </Link>
   );
 }
